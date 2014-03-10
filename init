@@ -1,0 +1,20 @@
+#!/usr/bin/env sh
+
+test -d /data/ssh || mkdir /data/ssh;
+chmod 700 /data/ssh
+test "$(ls -A /data/ssh)" || echo "Add SSH identity to /data/ssh, and restart"
+
+test -n "$HTTP_TUNNEL_HOST" && \
+    sed -i "s/HTTP_TUNNEL_HOST/$HTTP_TUNNEL_HOST/" /root/.ssh/config
+test -n "$HTTP_TUNNEL_PORT" && \
+    sed -i "s/HTTP_TUNNEL_PORT/$HTTP_TUNNEL_PORT/" /root/.ssh/config
+test -n "$HTTP_TUNNEL_USER" && \
+    sed -i "s/HTTP_TUNNEL_USER/$HTTP_TUNNEL_USER/" /root/.ssh/config
+if [ -n "$HTTP_TUNNEL_IDENTITY" ]
+then
+    test -f /data/ssh/$HTTP_TUNNEL_IDENTITY && \
+        cp -a /data/ssh/$HTTP_TUNNEL_IDENTITY /root/.ssh/identity && \
+        chmod 600 /root/.ssh/identity
+fi
+
+exec supervisord

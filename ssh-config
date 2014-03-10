@@ -1,0 +1,9 @@
+Host *
+    ServerAliveInterval 10
+    StrictHostKeyChecking no
+
+Host http-tunnel
+    HostName HTTP_TUNNEL_HOST
+    User HTTP_TUNNEL_USER
+    RemoteForward HTTP_TUNNEL_PORT localhost:80
+    IdentityFile ~/.ssh/identity

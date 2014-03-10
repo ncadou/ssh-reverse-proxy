@@ -29,8 +29,8 @@ As an example, you could use a WebFaction account to pipe all HTTP traffic to
 your development computer at home.
 
 To accomplish this you would add a website in your WebFaction control panel
-using the domain name of your choice, with a single "Custom app (listening on
-port)" application mounted on "/". WebFaction will assign a port to your app
+using the domain name of your choice, with a single `Custom app (listening on
+port)` application mounted on `/`. WebFaction will assign a port to your app
 which you will reuse like so (assuming you neatly place all your docker
 volumes in some location like `/srv/docker/volumes`):
 
@@ -55,12 +55,15 @@ something like this to it:
 
 `command="/bin/true",no-X11-forwarding,no-agent-forwarding,no-pty`
 
-Once the container has been created with `docker run`, it can be controlled at
-will with `docker (stop|start|restart) ssh-reverse-proxy`. If left running at
-system shutdown, docker will automatically restart it at the next boot.
+Once the container has been created with `docker run`, it can be controlled
+with `docker (stop|start|restart) ssh-reverse-proxy`. If left running at system
+shutdown, the docker daemon will automatically restart it at the next boot.
 
 What nginx is going to serve, and under which domain(s), is left an exercise to
 you, the user. Just add whatever is needed in `/data/nginx` and have at it.
+
+Note: if you want to access the nginx server locally, just add `-p 80:80` to
+the `docker run` command above, and fire up a browser to http://localhost.
 
 Volumes
 -------

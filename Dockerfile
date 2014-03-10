@@ -16,6 +16,4 @@ RUN chown -R root:root /root/.ssh && \
 ADD supervisord.conf /etc/supervisor/
 ADD init /usr/local/sbin/init.ssh-reverse-proxy
 
-EXPOSE 80
-
 ENTRYPOINT ["/usr/local/sbin/init.ssh-reverse-proxy"]
